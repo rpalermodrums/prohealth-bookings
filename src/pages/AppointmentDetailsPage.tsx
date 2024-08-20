@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { BaseSyntheticEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm, UseFormTrigger } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,7 +9,6 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
-import { ArrowLeft } from 'lucide-react';
 import { IMaskInput } from 'react-imask';
 
 // Define the schema for form validation
@@ -43,7 +42,7 @@ const AppointmentDetailsPage = () => {
     trigger('phone');
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: any) => {
     navigate('/confirmation', { 
       state: { 
         appointmentDetails: {
@@ -55,9 +54,8 @@ const AppointmentDetailsPage = () => {
       }
     });
   };
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
+  const handleFormSubmit = async (e: BaseSyntheticEvent<object, any, any>) => {
+    e?.preventDefault();
     setIsSubmitted(true);
     const isValid = await trigger();
     if (isValid) {
@@ -89,7 +87,7 @@ const AppointmentDetailsPage = () => {
                   placeholder="John" 
                   className={`w-full bg-white pl-3 ${isSubmitted && errors.firstName ? 'border-error-red' : ''}`}
                 />
-                {isSubmitted && errors.firstName && <p className="text-left text-error-red text-sm mt-1 pl-3">{errors.firstName.message}</p>}
+                {isSubmitted && errors.firstName && <p className="text-left text-error-red text-sm mt-1 pl-3">{errors.firstName.message?.toString()}</p>}
               </div>
               <div className="col-span-2">
                 <Label htmlFor="lastName" className="text-left block mb-2 pl-3">
@@ -101,7 +99,7 @@ const AppointmentDetailsPage = () => {
                   placeholder="Doe" 
                   className={`w-full bg-white pl-3 ${isSubmitted && errors.lastName ? 'border-error-red' : ''}`}
                 />
-                {isSubmitted && errors.lastName && <p className="text-left text-error-red text-sm mt-1 ">{errors.lastName.message}</p>}
+                {isSubmitted && errors.lastName && <p className="text-left text-error-red text-sm mt-1 ">{errors.lastName.message?.toString()}</p>}
               </div>
             </div>
             <div className="space-y-2">
@@ -116,7 +114,7 @@ const AppointmentDetailsPage = () => {
                 className={`w-full bg-white pl-3 ${isSubmitted && errors.email ? 'border-error-red' : ''}`}
                 aria-invalid={isSubmitted && errors.email ? 'true' : 'false'}
               />
-              {isSubmitted && errors.email && <p className="text-left text-error-red text-sm mt-1 pl-3">{errors.email.message}</p>}
+              {isSubmitted && errors.email && <p className="text-left text-error-red text-sm mt-1 pl-3">{errors.email.message?.toString()}</p>}
             </div>
             <div className="space-y-2">
               <Label htmlFor="phone" className="text-left block mb-2 pl-2">
@@ -130,7 +128,7 @@ const AppointmentDetailsPage = () => {
                 placeholder="(123) 456-7890"
                 className={`w-full h-10 px-3 py-2 rounded-md border bg-white pl-3 ${errors.phone ? 'border-error-red' : 'border-input'}`}
               />
-              {errors.phone && <p className="text-left text-error-red text-sm mt-1 pl-3">{errors.phone.message}</p>}
+              {isSubmitted && errors.phone && <p className="text-left text-error-red text-sm mt-1 pl-3">{errors.phone.message?.toString()}</p>}
             </div>
             <div className="space-y-2">
               <Label htmlFor="notes" className="text-left block mb-2 pl-2">Additional Information (Optional)</Label>
@@ -142,7 +140,7 @@ const AppointmentDetailsPage = () => {
                 rows={4}
                 maxLength={500}
               />
-              {isSubmitted && errors.notes && <p className="text-left text-error-red text-sm mt-1 pl-3">{errors.notes.message}</p>}
+              {isSubmitted && errors.notes && <p className="text-left text-error-red text-sm mt-1 pl-3">{errors.notes.message?.toString()}</p>}
             </div>
             <Button type="submit" className="w-full bg-primary-blue hover:bg-dark-blue text-white font-bold py-3 rounded-lg transition duration-300">
               Confirm Interview

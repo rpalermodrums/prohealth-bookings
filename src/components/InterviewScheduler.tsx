@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import { Button } from './ui/button';
+import { useState } from 'react';
 import { Card, CardHeader, CardContent } from './ui/card';
 import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import CalendarView from './CalendarView';
 
 const InterviewScheduler = () => {
-  const navigate = useNavigate();
   const [role, setRole] = useState<string | null>(null);
 
   const handleRoleSelect = (value: string) => {
